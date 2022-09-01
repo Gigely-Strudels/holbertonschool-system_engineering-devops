@@ -1,0 +1,4 @@
+#!/bin/bash
+ls -a -l
+ls -a -l /holbertonschool-system_engineering-devops
+ls -a -l /boot
