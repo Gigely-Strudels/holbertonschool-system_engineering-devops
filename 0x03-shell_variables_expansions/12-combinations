@@ -1,2 +1,2 @@
 #!/bin/bash
-echo {:lower:}{:lower:} | grep -i "oo" | tr ' ' '\n'
+echo {a..z}{a..z} | grep -i "oo" | tr ' ' '\n'
