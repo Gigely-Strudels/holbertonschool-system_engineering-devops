@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # until loop print Best School 10 times
-bestschool="Best School"
 i=0
 until [ $i -gt 9 ]
 do
