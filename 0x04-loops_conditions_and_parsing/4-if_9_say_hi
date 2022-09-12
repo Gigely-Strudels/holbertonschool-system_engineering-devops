@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#going to try and make it say best school and hi
+i=0
+while [[ i -le 10 ]]
+do
+	if [[ i -eq 9 ]]; then
+		echo "Hi"
+	else
+		echo "Best School"
+	fi
+	
+	((i++))
+done
