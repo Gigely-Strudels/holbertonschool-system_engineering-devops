@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #ls but harder
-LIST="$(ls)"
-for i in "$LIST"
+LIST=$(ls)
+for i in $LIST
 do
        
 	echo "$i" | cut -d"-" -f2
