@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#kill
+kill "$(ps -x | pgrep -f beyond )"
