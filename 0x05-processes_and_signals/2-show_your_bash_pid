@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#pgrep bash process
+# shellcheck disable=SC2009
+ps aux | grep bash
