@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#invincble
+i=1
+while [ $i -gt 0 ]
+do
+	echo "To infinity and beyond"
+	sleep 2
+	((i++))
+	trap _term SIGTERM
+	echo "I am invincible!!!"
+done
