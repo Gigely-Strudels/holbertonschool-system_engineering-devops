@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+# This script will display listening ports and their associated processes
+netstat -l --program
