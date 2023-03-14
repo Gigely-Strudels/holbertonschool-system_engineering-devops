@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 # This script installs nginx web server on a server
-sudo apt-get update
-sudo apt-get install -y nginx
-sudo ufw allow 'Nginx HTTP'
-sudo ufw status
-sudo service nginx status
-curl http://35.180.228.223:80
+apt-get update
+apt-get upgrade
+apt-get install -y nginx
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Hello World" > /etc/nginx/html/index.html
+printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /etc/nginx/html;
+    index index.html;
+}" > /etc/nginx/sites-available/default
+service nginx restart
