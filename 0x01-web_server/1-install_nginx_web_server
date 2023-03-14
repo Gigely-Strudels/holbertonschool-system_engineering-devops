@@ -2,11 +2,7 @@
 # This script installs nginx web server on a server
 sudo apt-get update
 sudo apt-get install -y nginx
-sudo service nginx start
-if [ curl localhost ]; then
-    echo "Hello World"
-    exit 0
-else
-    exit 1
-fi
-sudo service nginx restart
+sudo ufw allow 'Nginx HTTP'
+sudo ufw status
+sudo service nginx status
+curl http://35.180.228.223:80
