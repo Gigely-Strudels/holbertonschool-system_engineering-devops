@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# This script installs nginx web server on a server
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get install -y nginx
+sudo mkdir /etc/nginx/html
+sudo touch /etc/nginx/html/index.html
+sudo echo "Hello World" > /etc/nginx/html/index.html
+sudo printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /etc/nginx/html;
+    index index.html;
+    location /redirect_me {
+        return 301 http://geriatricspoon.tech;
+    }
+    error_page 404 /404.html;
+    location /404 {
+        root /etc/nginx/html;
+        internal;
+    }
+}" > /etc/nginx/sites-available/default
+sudo service nginx -y restart
