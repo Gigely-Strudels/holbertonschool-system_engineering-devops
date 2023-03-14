@@ -3,5 +3,9 @@
 sudo apt-get update
 sudo apt-get install -y nginx
 sudo service nginx start
-curl -sS http://35.180.228.223/ | grep "Hello World"
+if [ curl -sI http://localhost | grep "Hello World" ]; then
+    exit 0
+else
+    exit 1
+fi
 sudo service nginx restart
