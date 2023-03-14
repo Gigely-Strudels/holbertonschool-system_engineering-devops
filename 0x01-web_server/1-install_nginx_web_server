@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # This script installs nginx web server on a server
-sudo apt-get -y update
+sudo apt-get update
 sudo apt-get install -y nginx
-sudo service nginx start
-sudo ufw allow 80/tcp
-sudo service nginx restart
-sudo service nginx status
+echo "Hello World" | sudo tee /var/www/html/index.html > /dev/null
+sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+sudo sed -i '/^\s*location \/ {$/,/^\s*}$/ s/^\s*#*//' /etc/nginx/sites-available/default
+sudo /etc/init.d/nginx restart
