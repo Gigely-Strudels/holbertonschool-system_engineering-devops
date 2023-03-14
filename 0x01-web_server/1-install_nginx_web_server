@@ -2,4 +2,6 @@
 # This script installs nginx web server on a server
 sudo apt-get update
 sudo apt-get install -y nginx
+sudo service nginx start
 curl -sS http://35.180.228.223/ | grep "Hello World"
+sudo service nginx restart
