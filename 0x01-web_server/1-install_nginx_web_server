@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # This script installs nginx web server on a server
-apt-get update
-apt-get upgrade
-apt-get install -y nginx
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get install -y nginx
 mkdir /etc/nginx/html
 touch /etc/nginx/html/index.html
 echo "Hello World" > /etc/nginx/html/index.html
@@ -12,4 +12,4 @@ printf %s "server {
     root /etc/nginx/html;
     index index.html;
 }" > /etc/nginx/sites-available/default
-service nginx restart
+sudo service nginx -y restart
