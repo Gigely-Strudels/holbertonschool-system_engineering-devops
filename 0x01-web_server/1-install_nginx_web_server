@@ -2,14 +2,25 @@
 # This script installs nginx web server on a server
 sudo apt-get -y update
 sudo apt-get -y upgrade
-sudo apt-get install -y nginx
-sudo mkdir /etc/nginx/html
-sudo touch /etc/nginx/html/index.html
+if ! [ -x "$(command -v nginx)" ]; then
+    sudo apt-get -y install nginx
+fi
+if [ ! -d "/etc/nginx/html" ]; then
+    sudo mkdir /etc/nginx/html
+fi
+if [ ! -f "/etc/nginx/html/index.html" ]; then
+    sudo touch /etc/nginx/html/index.html
+fi
 echo "Hello World" > /etc/nginx/html/index.html
-printf %s "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /etc/nginx/html;
-    index index.html;
-}" > /etc/nginx/sites-available/default
-sudo service nginx -y restart
+if [ ! -f "/etc/nginx/sites-available/default" ]; then
+    printf %s "server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /etc/nginx/html;
+        index index.html;
+    }" | sudo tee /etc/nginx/sites-available/default
+fi
+if ! [ -h "/etc/nginx/sites-enabled/default" ]; then
+    sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+fi
+sudo service nginx restart
