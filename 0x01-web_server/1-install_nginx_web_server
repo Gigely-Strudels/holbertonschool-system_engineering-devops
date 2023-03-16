@@ -11,7 +11,7 @@ fi
 if [ ! -f "/etc/nginx/html/index.html" ]; then
     sudo touch /etc/nginx/html/index.html
 fi
-echo "Hello World" > /etc/nginx/html/index.html
+echo "Hello World" > sudo tee /etc/nginx/html/index.html
 if [ ! -f "/etc/nginx/sites-available/default" ]; then
     printf %s "server {
         listen 80 default_server;
