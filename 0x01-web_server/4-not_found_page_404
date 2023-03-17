@@ -1,37 +1,24 @@
 #!/usr/bin/env bash
-# This script installs nginx web server on a server
-sudo apt-get -y update
-sudo apt-get -y upgrade
-if ! [ -x "$(command -v nginx)" ]; then
-    sudo apt-get -y install nginx
-fi
-if [ ! -d "/etc/nginx/html" ]; then
-    sudo mkdir /etc/nginx/html
-fi
-if [ ! -f "/etc/nginx/html/index.html" ]; then
-    sudo touch /etc/nginx/html/index.html
-fi
-echo "Hello World" > sudo tee /etc/nginx/html/index.html
-if [ ! -f "/etc/nginx/html/404.html" ]; then
-    sudo touch /etc/nginx/html/404.html
-fi
-if [ ! -f "/etc/nginx/sites-available/default" ]; then
-    printf %s "server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /etc/nginx/html;
-        index index.html;
-        location /redirect_me {
-            return 301 http://geriatricspoon.tech;
-        }
-        error_page 404 /404.html;
-        location /404 {
-            root /etc/nginx/html;
-            internal;
-        }
-    }" | sudo tee /etc/nginx/sites-available/default
-fi
-if ! [ -h "/etc/nginx/sites-enabled/default" ]; then
-    sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-fi
-sudo service nginx restart
+# install nginx on remote server
+apt-get update
+apt-get upgrade -y
+apt-get install -y nginx
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html /etc/nginx/html/404.html
+echo "Hello World!" > /etc/nginx/html/index.html
+echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
+printf %s "server {
+    listen  80 default_server;
+    listen  [::]:80 default_server;
+    root    /etc/nginx/html;
+    index   index.html;
+    location /redirect_me {
+        return 301 http://geriatricspoon.tech/;
+    }
+    error_page 404 /404.html;
+    location /404 {
+      root /etc/nginx/html;
+      internal;
+    }
+}" > /etc/nginx/sites-available/default
+service nginx restart
