@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Block all incoming traffic but
+# 80 (HTTP)
+# 443 (HTTPS)
+# 22 (SSH)
+# 8080 (HTTP) forwarded to port 80 (HTTP)
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 22/tcp
+sudo ufw allow 8080/tcp
+printf %s "*nat\n:PREROUTING ACCEPT [0:0]\n-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80\nCOMMIT" > sudo tee /etc/ufw/before.rules
+sudo ufw enable
