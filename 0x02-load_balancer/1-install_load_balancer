@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# HAProxy is a free, very fast and reliable solution offering high availability, load balancing, and proxying for TCP and HTTP-based applications.
+
+apt-get update
+apt-get -y upgrade
+apt-get -y install haproxy
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+cat <<EOT > /etc/haproxy/haproxy.cfg
+defaults
+    mode    http
+frontend http-in
+    bind    *:80
+    default_backend servers
+backend servers
+    balance roundrobin
+    server  5573-web-01 35.180.228.223:80 check
+    server  5573-web-02 15.188.79.132:80 check
+EOT
+sudo service haproxy restart
