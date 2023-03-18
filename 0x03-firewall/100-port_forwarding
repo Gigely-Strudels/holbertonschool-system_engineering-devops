@@ -8,7 +8,6 @@ sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 22/tcp
 sudo ufw allow 8080/tcp
-sudo apt-get install -y iptables
-sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-sudo apt-get install -y iptables-persistent
 sudo ufw enable
+sudo printf "%s\n" "\n" "*nat" ":PREROUTING ACCEPT [0:0]" "-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80" "COMMIT" | sudo tee -a /etc/ufw/before.rules
+sudo ufw reload
