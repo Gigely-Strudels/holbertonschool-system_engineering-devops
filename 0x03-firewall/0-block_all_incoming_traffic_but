@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Block all incoming traffic but
+# 80 (HTTP)
+# 443 (HTTPS)
+# 22 (SSH)
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 22/tcp
+sudo ufw enable
