@@ -25,7 +25,7 @@ def get_employee_todo_progress(employee_id):
     return employee_data, todo_data
 
 
-def export_to_json(employee_id, todo_data):
+def export_to_json(employee_id, employee_data, todo_data):
     """exports data in the JSON format"""
     file_name = "{}.json".format(employee_id)
     task_data = []
