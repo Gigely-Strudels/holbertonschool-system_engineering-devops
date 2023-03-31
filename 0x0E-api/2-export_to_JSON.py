@@ -25,21 +25,22 @@ def get_employee_todo_progress(employee_id):
     return employee_data, todo_data
 
 
-def export_to_json(employee_id, employee_name, todo_data):
+def export_to_json(employee_id, todo_data):
     """exports data in the JSON format"""
     file_name = "{}.json".format(employee_id)
-    data = {}
-    data[employee_id] = []
+    task_data = []
 
     for task in todo_data:
-        data[employee_id].append({
+        task_data.append({
             "task": task['title'],
             "completed": task['completed'],
-            "username": employee_name
+            "username": employee_data['username']
         })
 
+    json_data = {employee_id: task_data}
+
     with open(file_name, 'w') as jsonfile:
-        json.dump(data, jsonfile)
+        json.dump(json_data, jsonfile)
 
     print("Data exported to {}".format(file_name))
 
