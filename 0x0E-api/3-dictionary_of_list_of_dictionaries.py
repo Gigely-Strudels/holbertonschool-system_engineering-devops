@@ -46,7 +46,7 @@ def export_to_json(employee_data_list):
     with open(file_name, 'w') as jsonfile:
         json.dump(task_list, jsonfile)
 
-    print("Data exported to {}".format(file_name))
+    #print("Data exported to {}".format(file_name))
 
 
 if __name__ == "__main__":
