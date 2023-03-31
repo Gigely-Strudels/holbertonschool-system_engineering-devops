@@ -34,14 +34,14 @@ def get_employee_todo_progress(employee_id):
     print("Employee {} is done with tasks({}/{}):".format(
         employee_name, completed_tasks, total_tasks))
     for title in completed_task_titles:
-        print("\t {}\n", title)
+        print("\t ", title)
 
     csvfile = io.StringIO()
     writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
     for task in todo_data:
         writer.writerow([employee_id, employee_name,
                          str(task['completed']).lower(), task['title']])
-    
+
     with open('{}.csv'.format(employee_id), 'w', encoding='utf-8') as f:
         f.write(csvfile.getvalue())
 
