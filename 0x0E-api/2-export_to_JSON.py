@@ -59,4 +59,4 @@ if __name__ == "__main__":
     employee_data, todo_data = get_employee_todo_progress(employee_id)
 
     if employee_data and todo_data:
-        export_to_json(employee_id, employee_data['username'], todo_data)
+        export_to_json(employee_id, employee_data, todo_data)
