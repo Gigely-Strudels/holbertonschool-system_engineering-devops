@@ -38,10 +38,10 @@ def export_to_json(employee_data_list):
 
     task_list = {}
     for employee in employee_data_list:
-        employee_id = employee['id']
+        user_id = employee['id']
         username = employee['username']
-        tasks = get_employee_task_list(employee_id, username)
-        task_list[employee_id] = tasks
+        tasks = get_employee_task_list(user_id, username)
+        task_list[user_id] = tasks
 
     with open(file_name, 'w') as jsonfile:
         json.dump(task_list, jsonfile)
