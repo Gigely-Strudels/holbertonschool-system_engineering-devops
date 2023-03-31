@@ -7,7 +7,6 @@ and exports data in the CSV format.
 import requests
 import sys
 import csv
-import os
 
 EMPLOYEE_ENDPOINT = "https://jsonplaceholder.typicode.com/users/{}/"
 TODO_ENDPOINT = "https://jsonplaceholder.typicode.com/todos?userId={}"
@@ -36,14 +35,20 @@ def get_employee_todo_progress(employee_id):
     for title in completed_task_titles:
         print("\t ", title)
 
-    with open('{}.csv'.format(employee_id), 'w', encoding='utf-8',
-              newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',', quotechar='"',
-                            quoting=csv.QUOTE_MINIMAL,
-                            lineterminator=os.linesep)
+    with open('{}.csv'.format(employee_id), 'w',
+              encoding='utf-8', newline='') as csvfile:
+        fieldnames = ['USER_ID', 'USERNAME',
+                      'TASK_COMPLETED_STATUS', 'TASK_TITLE']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',',
+                                quotechar='"', quoting=csv.QUOTE_ALL)
+
         for task in todo_data:
-            writer.writerow([employee_id, employee_name,
-                             str(task['completed']).lower(), task['title']])
+            writer.writerow({
+                'USER_ID': employee_id,
+                'USERNAME': employee_name,
+                'TASK_COMPLETED_STATUS': str(task['completed']).lower(),
+                'TASK_TITLE': task['title']
+            })
 
 
 if __name__ == '__main__':
