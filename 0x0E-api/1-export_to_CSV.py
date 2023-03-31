@@ -40,7 +40,7 @@ def get_employee_todo_progress(employee_id):
         writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
         for task in todo_data:
             writer.writerow([employee_id, employee_name,
-                             task['completed'], task['title']])
+                             str(task['completed']).lower(), task['title']])
 
 
 if __name__ == '__main__':
