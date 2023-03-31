@@ -16,7 +16,7 @@ def get_employee_todo_progress(employee_id):
     """grabs employee todo progress"""
     employee_response = requests.get(EMPLOYEE_ENDPOINT.format(employee_id))
     employee_data = employee_response.json()
-    employee_name = employee_data['name']
+    employee_name = employee_data['username']
 
     todo_response = requests.get(TODO_ENDPOINT.format(employee_id))
     todo_data = todo_response.json()
@@ -37,7 +37,7 @@ def get_employee_todo_progress(employee_id):
 
     with open('{}.csv'.format(employee_id), 'w', newline='',
               encoding='utf-8') as csvfile:
-        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
         for task in todo_data:
             writer.writerow([employee_id, employee_name,
                              task['completed'], task['title']])
