@@ -33,17 +33,17 @@ def get_employee_todo_progress(employee_id):
     print("Employee {} is done with tasks({}/{}):".format(
         employee_name, completed_tasks, total_tasks))
     for title in completed_task_titles:
-        print("\t {}".format(title))
+        print("\t ", title)
 
     with open('{}.csv'.format(employee_id), 'w', newline='',
               encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS",
                          "TASK_TITLE"])
-        writer.writerow([])
+        writer.writerow([])  # Add a blank line after the header row
         for task in todo_data:
-            writer.writerow([employee_id, employee_name, task['completed'],
-                             task['title']])
+            writer.writerow([employee_id, employee_name,
+                             task['completed'], task['title']])
 
 
 if __name__ == '__main__':
