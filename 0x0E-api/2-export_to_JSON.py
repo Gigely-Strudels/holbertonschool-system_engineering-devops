@@ -1,12 +1,8 @@
 #!/usr/bin/python3
-"""
-REST API for a given employee ID,
-returns information about his/her TODO list progress
-and exports data in the CSV format.
-"""
+""""""
+import json
 import requests
 import sys
-import csv
 import urllib
 
 
@@ -29,23 +25,28 @@ def get_employee_todo_progress(employee_id):
     return employee_data, todo_data
 
 
-def export_to_csv(employee_id, todo_data):
-    """exports data in the CSV format"""
-    file_name = "{}.csv".format(employee_id)
+def export_to_json(employee_id, employee_name, todo_data):
+    """exports data in the JSON format"""
+    file_name = "{}.json".format(employee_id)
+    data = {}
+    data[employee_id] = []
 
-    with open(file_name, 'w', newline='') as csvfile:
-        csv_writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+    for task in todo_data:
+        data[employee_id].append({
+            "task": task['title'],
+            "completed": task['completed'],
+            "username": employee_name
+        })
 
-        for task in todo_data:
-            csv_writer.writerow([employee_id, employee_data['username'],
-                                 task['completed'], task['title']])
+    with open(file_name, 'w') as jsonfile:
+        json.dump(data, jsonfile)
 
     print("Data exported to {}".format(file_name))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 1-export_to_CSV.py <employee_id>")
+        print("Usage: python3 2-export_to_JSON.py <employee_id>")
         sys.exit(1)
 
     try:
@@ -57,4 +58,4 @@ if __name__ == '__main__':
     employee_data, todo_data = get_employee_todo_progress(employee_id)
 
     if employee_data and todo_data:
-        export_to_csv(employee_id, employee_data, todo_data)
+        export_to_json(employee_id, employee_data['username'], todo_data)
