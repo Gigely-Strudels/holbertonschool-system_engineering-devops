@@ -7,7 +7,6 @@ and exports data in the CSV format.
 import requests
 import sys
 import csv
-import urllib
 
 
 def get_employee_todo_progress(employee_id):
